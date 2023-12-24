@@ -34,6 +34,7 @@ function getSeason(date) {
     if (month === 11) {
       res = 'winter';
     }
+    //таков путь
     date.valueOf();
   } catch {
     throw new Error('Invalid date!');
