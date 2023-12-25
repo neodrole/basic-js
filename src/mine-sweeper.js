@@ -23,9 +23,55 @@ const { NotImplementedError } = require('../extensions/index.js');
  *  [1, 1, 1]
  * ]
  */
-function minesweeper(/* matrix */) {
-  throw new NotImplementedError('Not implemented');
-  // remove line with error and write your code here
+function minesweeper(matrix) {
+  let res = [];
+  matrix.forEach((row,ind) => {
+    res.push([]);
+    row.forEach((element, indElem) => {
+      res[ind].push(0);
+    })
+  })
+
+  matrix.forEach((row,ind) => {
+    row.forEach((element, indElem) => {
+      if (element) {
+        // я тут понял, что я мог сделать это циклом -1 -> 1, но уже пусть будет так
+        //
+        if((ind - 1 >= 0) && (indElem >= 0)) {
+          res[ind-1][indElem - 1] = res[ind-1][indElem - 1] + 1;
+        }
+        if((ind - 1 >= 0) && (indElem >= 0)) {
+          res[ind-1][indElem] = res[ind-1][indElem] + 1;
+        }
+        if((ind - 1 >= 0) && (indElem >= 0)) {
+          res[ind-1][indElem + 1] = res[ind-1][indElem + 1] + 1;
+        }
+        //
+        if(indElem >= 0 && indElem < matrix[ind].length) {
+          res[ind][indElem - 1] = res[ind][indElem - 1] + 1;
+        }
+        //if(res[ind][indElem]) {
+        //  res[ind][indElem] = res[ind-1][indElem] + 1;
+        //}
+        if(indElem >= 0 && indElem < matrix[ind].length) {
+          res[ind][indElem + 1] = res[ind][indElem + 1] + 1;
+        }
+        //
+        if((ind+ 1 < matrix.length) && (indElem >= 0 && indElem < matrix[ind].length)) {
+          res[ind+1][indElem - 1] = res[ind+1][indElem - 1] + 1;
+        }
+        if((ind+ 1 < matrix.length)) {
+          res[ind+1][indElem] = res[ind+1][indElem] + 1;
+        }
+        if((ind+ 1 < matrix.length) && (indElem >= 0 && indElem < matrix[ind].length)) {
+          res[ind+1][indElem + 1] = res[ind+1][indElem + 1] + 1;
+        }
+      }
+    })
+
+
+  })
+  return res;
 }
 
 module.exports = {

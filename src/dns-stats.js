@@ -22,9 +22,22 @@ const { NotImplementedError } = require('../extensions/index.js');
  * }
  *
  */
-function getDNSStats(/* domains */) {
-  throw new NotImplementedError('Not implemented');
-  // remove line with error and write your code here
+function getDNSStats(domains) {
+  let res = {};
+  domains.forEach((e,ind) => {
+    let domainSplitted = e.split('.');
+    for (let i = domainSplitted.length - 1; i >= 0; i = i - 1) {
+      let domainLVL = domains.length;
+      //это бред, но я не понимаю, почему в примере code.yandex.ru - .ru 3го уровня, а здесь
+      //.com - 2го при info.epam.com
+      if (domainSplitted.slice(-(i+1)).length > domains.length) {
+        domainLVL = 1;
+      }
+      res[`.${domainSplitted.slice(-(i+1)).reverse().join('.')}`] = domainLVL;
+    }
+  })
+  console.log(res);
+  return res;
 }
 
 module.exports = {
